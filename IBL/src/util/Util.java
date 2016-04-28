@@ -21,9 +21,4 @@ public class Util
 		data.add(0, firstLine);
 	}
 
-	// generates a random weight
-	public static double GenerateRandomWeight()
-	{
-		return -0.05 + (random.nextDouble() * 0.1);
-	}
 }

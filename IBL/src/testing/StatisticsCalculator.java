@@ -29,7 +29,8 @@ public class StatisticsCalculator
 		stdSampleSize = standardDev / Math.sqrt(values.size());
 		CI = T_DoF_Alpha * stdSampleSize;
 		
-		System.out.println(metric + ": " + format.format(mean) + " +-" + format.format(CI));
+		//System.out.println(metric + ": " + format.format(mean) + " +-" + format.format(CI));
+		System.out.println(format.format(mean) + " +-" + format.format(CI));
 	}
 
 	// calculates the mean of a collection

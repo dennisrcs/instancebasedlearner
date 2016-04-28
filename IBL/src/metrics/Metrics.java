@@ -18,11 +18,6 @@ public class Metrics
 	public static List<Double> CalculateInformationGain(List<Example> set)
 	{
 		InformationGain infoGainCalculator = new InformationGain();
-		List<Double> infoGains = infoGainCalculator.CalculateInformationGainAllAttributes(set);
-	
-		for (double d : infoGains)
-			System.out.println(d);
-		
-		return infoGains;
+		return infoGainCalculator.CalculateInformationGainAllAttributes(set);
 	}
 }

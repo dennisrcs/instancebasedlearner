@@ -31,6 +31,11 @@ public class Example
 		this.target = target;
 	}
 	
+	public String toString()
+	{
+		return input.toString() + " => " +  target;
+	}
+	
 	public Example clone()
 	{
 		List<String> newInput = new ArrayList<String>();

@@ -9,28 +9,24 @@ import model.Example;
 public class DataSplitter
 {
 	// constants
-	private final double TRAINING_DATA_PROPORTION = 2.0/3.0;
 	private final double TRAINING_TESTING_PROPORTION = 0.9;
 	
 	// members
 	private List<Example> trainingData;
-	private List<Example> validationData;
 	private List<Example> testingData;
-	private List<String> attributeTypes;
+	private List<Example> inputData;
 	
 	// constructor
-	public DataSplitter(List<String> attributeTypes)
+	public DataSplitter()
 	{
 		this.trainingData = new ArrayList<Example>();
-		this.validationData = new ArrayList<Example>();
 		this.testingData = new ArrayList<Example>();
-		this.setAttributeTypes(attributeTypes);
 	}
 	
 	// splits the data between training and validation data
 	public void split(List<Example> data, int cv_iteration)
 	{
-		List<Example> trainingAndValidationData = new ArrayList<Example>();
+		this.setInputData(data);
 		int dataSize = data.size();
 		int testingDataSize = dataSize - (int)Math.floor(dataSize * TRAINING_TESTING_PROPORTION);
 		
@@ -39,29 +35,11 @@ public class DataSplitter
 		
 		for (int i = 0; i < dataSize; i++)
 		{
-			Example aux = data.remove(0);
+			Example aux = data.get(i);
 			if (i >= startingIndex && i < endIndx)
 				this.testingData.add(aux);
 			else
-				trainingAndValidationData.add(aux);	
-		}
-
-		SplitTrainingAndValidationData(trainingAndValidationData);
-	}
-
-	// splits data given between training and validation data
-	private void SplitTrainingAndValidationData(List<Example> data)
-	{
-		int dataSize = data.size();
-		int trainingDatSize = (int)Math.floor(dataSize * TRAINING_DATA_PROPORTION);
-		
-		for (int i = 0; i < dataSize; i++)
-		{
-			Example line = data.remove(0);
-			if (i < trainingDatSize + 1)
-				this.trainingData.add(line);
-			else
-				this.validationData.add(line);
+				this.trainingData.add(aux);
 		}
 	}
 
@@ -74,14 +52,6 @@ public class DataSplitter
 		this.trainingData = trainingData;
 	}
 
-	public List<Example> getValidationData() {
-		return validationData;
-	}
-
-	public void setValidationData(List<Example> validationData) {
-		this.validationData = validationData;
-	}
-
 	public List<Example> getTestingData() {
 		return testingData;
 	}
@@ -90,11 +60,11 @@ public class DataSplitter
 		this.testingData = testingData;
 	}
 
-	public List<String> getAttributeTypes() {
-		return attributeTypes;
+	public List<Example> getInputData() {
+		return inputData;
 	}
 
-	public void setAttributeTypes(List<String> attributeTypes) {
-		this.attributeTypes = attributeTypes;
+	public void setInputData(List<Example> inputData) {
+		this.inputData = inputData;
 	}
 }

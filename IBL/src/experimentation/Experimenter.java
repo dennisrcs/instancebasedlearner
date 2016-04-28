@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import input.UserInputReader;
-import metrics.Metrics;
+import model.Example;
 import parser.DataSplitter;
 import testing.StatisticsCalculator;
 
@@ -17,27 +17,29 @@ public class Experimenter
 	// executes the experiment
 	public void execute(UserInputReader userInput)
 	{
+		// wraps the neural network execution
+		InstanceBasedExecutor executor = new InstanceBasedExecutor();
+		
+		// preprocess phase
+		List<Example> data = executor.preprocess(userInput.getFilename(), userInput.getMissingDataSymbol());
+
+		// extract features
+		List<Example> dataWithExtractedFeatures = executor.extractFeatures(data, userInput.getFeaturesToRemoveNumber());
+	
 		List<Double> accuracies = new ArrayList<Double>();
-		System.out.println("Running...");
 		for (int iteration = 0; iteration < K_FOLD; iteration++)
 		{
-			// wraps the neural network execution
-			InstanceBasedExecutor executor = new InstanceBasedExecutor();
-			
-			// preprocess phase
-			DataSplitter data = executor.preprocess(userInput.getFilename(), userInput.getMissingDataSymbol(), iteration);
-			
-			Metrics.CalculateInformationGain(data.getTestingData());
+			// splits the data
+			DataSplitter dataSplitter = executor.splitData(dataWithExtractedFeatures, iteration);
 			
 			// testing phase
-			double accuracy = executor.evaluate(userInput.getNeighborsSize(), data.getAttributeTypes(), data.getTrainingData(), data.getTestingData());
+			double accuracy = executor.evaluate(userInput.getNeighborsSize(), dataSplitter.getTrainingData(), dataSplitter.getTestingData());
 			accuracies.add(accuracy);
-			
-			//System.out.println(accuracy);
 		}
 		
-		StatisticsCalculator calc = new StatisticsCalculator();
-		calc.performStatistics(accuracies);
+		StatisticsCalculator calculator = new StatisticsCalculator();
+		calculator.performStatistics(accuracies);
+		
 	}
 }
 

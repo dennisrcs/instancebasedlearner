@@ -21,18 +21,6 @@ public class MathUtil
 
 		return min;
 	}
-
-	// find maximum value within a data collection
-	public static double findMax(List<Double> data)
-	{
-		double max = Double.NEGATIVE_INFINITY;
-		
-		for (int i = 0; i < data.size(); i++)
-			if (data.get(i) > max)
-				max = data.get(i);
-
-		return max;
-	}
 	
 	// find minimum value within a data collection a return its index
 	public static int findMinIndex(List<Double> data)
@@ -49,6 +37,18 @@ public class MathUtil
 		}
 			
 		return index;
+	}
+
+	// find maximum value within a data collection
+	public static double findMax(List<Double> data)
+	{
+		double max = Double.NEGATIVE_INFINITY;
+		
+		for (int i = 0; i < data.size(); i++)
+			if (data.get(i) > max)
+				max = data.get(i);
+
+		return max;
 	}
 	
 	public static double simpleEuclideanDistance(List<String> data1, List<String> data2)

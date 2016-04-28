@@ -15,10 +15,9 @@ public class KNN
 	private int k;
 
 	// constructor
-	public KNN (int neighborsNumber, List<String> attributesType)
+	public KNN (int neighborsNumber)
 	{
 		k = neighborsNumber;
-		MathUtil.ATTRIBUTES_TYPE = attributesType;
 	}
 	
 	// computes the distances between the example and the data set

@@ -6,7 +6,6 @@ import java.util.List;
 import model.Example;
 import parser.DataInput;
 import parser.DataParser;
-import parser.DataSplitter;
 import util.DataUtil;
 
 // Preprocess phase executor
@@ -22,7 +21,7 @@ public class PreprocessTaskExecutor
 	}
 	
 	// executes the preprocess phase
-	public DataSplitter execute(String filename, String missingDataSymbol, int iteration)
+	public List<Example> execute(String filename, String missingDataSymbol)
 	{
 		List<List<String>> parsedData = parser.parse(filename);
 		DataInput inputData = new DataInput(parsedData, missingDataSymbol);
@@ -38,11 +37,8 @@ public class PreprocessTaskExecutor
 
 		// populates example and split data accordingly
 		populateExamples(examples, inputData);
-
-		DataSplitter dataSplitter = new DataSplitter(inputData.getAttributeTypes());
-		dataSplitter.split(examples, iteration);
 		
-		return dataSplitter;
+		return examples;
 	}
 	
 	// populate examples according to the data set

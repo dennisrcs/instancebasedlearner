@@ -3,6 +3,8 @@ package parser;
 import java.util.ArrayList;
 import java.util.List;
 
+import util.MathUtil;
+
 // stores the data provided by input
 public class DataInput
 {
@@ -131,6 +133,7 @@ public class DataInput
 
 	public void setAttributeTypes(List<String> attributeType) {
 		this.attributeTypes = attributeType;
+		MathUtil.ATTRIBUTES_TYPE = this.attributeTypes;
 	}
 
 }

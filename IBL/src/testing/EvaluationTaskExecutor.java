@@ -9,10 +9,10 @@ import model.Example;
 public class EvaluationTaskExecutor
 {
 	// computes the accuracy of the classifier given the training and testing data
-	public double execute(int neighborsSize, List<String> attributesType, List<Example> trainingData, List<Example> testingData)
+	public double execute(int neighborsSize, List<Example> trainingData, List<Example> testingData)
 	{
 		// initialization
-		KNN knn = new KNN(neighborsSize, attributesType);
+		KNN knn = new KNN(neighborsSize);
 		double accuracy = 0;
 		int correctClassifications = 0;
 		
